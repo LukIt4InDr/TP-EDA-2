@@ -49,9 +49,9 @@ void close(Fl_Widget* widget, void* data){
 }
 
 void sistemaEqLin(){
-
+    Window wind = Window();
 }
 
 void integracionNum(){
-
+    Window wind = Window();
 }
