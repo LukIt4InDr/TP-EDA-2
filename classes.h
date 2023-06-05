@@ -7,8 +7,12 @@ void integracionNum();
 
 class Window{
     private:
+        Fl_Window *integracionWin;
+        Fl_Window *sistemaEquWin;
 
+        static void wClose(Fl_Widget*, void*);
     public:
+        Window(int);
 
 };
 
@@ -16,7 +20,7 @@ class Calculadora{
     private:
 
     public:
-    
+
 };
 
 #endif

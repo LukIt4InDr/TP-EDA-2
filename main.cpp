@@ -4,7 +4,6 @@
 #include <FL/Fl_Float_Input.H>
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Button.H>
-#include <string.h>
 #include "classes.h"
 
 int main(){
@@ -49,9 +48,9 @@ void close(Fl_Widget* widget, void* data){
 }
 
 void sistemaEqLin(){
-    Window wind = Window();
+    Window wind = Window(1);
 }
 
 void integracionNum(){
-    Window wind = Window();
+    Window wind = Window(2);
 }
