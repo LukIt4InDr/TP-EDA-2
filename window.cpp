@@ -1,3 +1,4 @@
+#include <iostream>
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
@@ -154,17 +155,27 @@ void Window::crearMatriz2(Fl_Widget *w){
 void Window::calcularMatriz(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
     o->calcularMatriz2(w);
+    calcular->hide();
+    titulo->hide();
 }
 
 void Window::calcularMatriz2(Fl_Widget *w){
-    calcular->hide();
-    titulo->hide();
-
     mMatriz = atoi(cantM->value());
+
+    matriz = new float *[mMatriz];
+	for(i=0; i<mMatriz; i++){
+        matriz[i] = new float [mMatriz+1];
+    }
 
     for(j=0; j<mMatriz; j++){
 		for(i=0; i<mMatriz+1; i++){
             floatInput[j][i]->hide();
+            matriz[j][i] = atof(floatInput[j][i]->value());
         }
 	}
+
+    for(i=0; i<mMatriz; i++){
+        delete[] matriz[i];
+    }
+    delete[] matriz;
 }

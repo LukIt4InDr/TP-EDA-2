@@ -23,6 +23,7 @@ class Window{
         short inputXAux, inputYAux;
         short mMatriz = 10;
         short i, j, k;
+        float **matriz = 0;
 };
 
 class Calculadora{
