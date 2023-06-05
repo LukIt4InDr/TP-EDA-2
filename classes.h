@@ -26,15 +26,7 @@ class Window{
         float **matriz = 0;
 };
 
-class Calculadora{
-    private:
-        short i, j, k;
-        float aux;
-    public:
-        char *resultado(short);
-};
-
-class Gauss: Calculadora{
+class Gauss{
     private:
         short mMatriz;
         float *gauss = 0, **matriz = 0;
@@ -43,6 +35,7 @@ class Gauss: Calculadora{
         void setMatrizG(short, float*[]);
         float **mDiagonal();
         float **calcularGauss();
+        char *resultado(short);
 };
 
 #endif
