@@ -154,12 +154,22 @@ void Window::crearMatriz2(Fl_Widget *w){
 
 void Window::calcularMatriz(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
-    o->calcularMatriz2(w);
+
+
+    o->setMatriz(w);
     calcular->hide();
     titulo->hide();
+
+    
+
+    for(o->i=0; o->i<o->mMatriz; o->i++){
+        delete[] o->matriz[o->i];
+    }
+    delete[] o->matriz;
+    **(o->matriz) = 0;
 }
 
-void Window::calcularMatriz2(Fl_Widget *w){
+void Window::setMatriz(Fl_Widget *w){
     mMatriz = atoi(cantM->value());
 
     matriz = new float *[mMatriz];
@@ -173,9 +183,4 @@ void Window::calcularMatriz2(Fl_Widget *w){
             matriz[j][i] = atof(floatInput[j][i]->value());
         }
 	}
-
-    for(i=0; i<mMatriz; i++){
-        delete[] matriz[i];
-    }
-    delete[] matriz;
 }

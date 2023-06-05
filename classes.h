@@ -15,22 +15,34 @@ class Window{
         static void crearMatriz(Fl_Widget*, void*);
         void crearMatriz2(Fl_Widget *);
         static void calcularMatriz(Fl_Widget*, void*);
-        void calcularMatriz2(Fl_Widget *);
+        void setMatriz(Fl_Widget *);
     public:
         Window(int);
     protected:
         short inputX = 175, inputY = 225;
         short inputXAux, inputYAux;
-        short mMatriz = 10;
+        short mMatriz = 3;
         short i, j, k;
         float **matriz = 0;
 };
 
 class Calculadora{
     private:
-
+        short i, j, k;
+        float aux;
     public:
+        char *resultado(short);
+};
 
+class Gauss: Calculadora{
+    private:
+        short mMatriz;
+        float *gauss = 0, **matriz = 0;
+    public:
+        Gauss();
+        void setMatrizG(short, float*[]);
+        float **mDiagonal();
+        float **calcularGauss();
 };
 
 #endif
