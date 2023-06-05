@@ -3,20 +3,64 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Float_Input.H>
 #include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Input.H>
 #include <FL/Fl_Button.H>
 #include <string.h>
 #include "classes.h"
 
 short flag = 0;
 
+Fl_Box *titulo;
+
+Fl_Int_Input *cantM;
+Fl_Button *cantM_b;
+Fl_Float_Input *floatInput[10][11];
+Fl_Button *calcular;
+
 Window::Window(int modo){
     if(flag == 0){
         flag = 1;
         switch(modo){
             case 1:
+
+            
                 sistemaEquWin = new Fl_Window(520, 480);
                 sistemaEquWin->label("Sistema de Ecuaciones");
                 sistemaEquWin->callback(wClose,sistemaEquWin);
+
+                titulo = new Fl_Box(60, 10, 400, 100);
+                titulo->label("La Solucion del Sistema de Ecuaciones es\n por medio del Metodo de Gauss-Jordan.\n El sistema en esta calculadora solo puede\n tener hasta 10 ecuaciones.");
+                titulo->box(FL_UP_BOX);
+                titulo->labelfont(FL_BOLD);
+
+                cantM = new Fl_Int_Input(175, 225, 30, 20);
+                cantM->box(FL_GTK_UP_BOX);
+                cantM->value("3");
+
+                cantM_b = new Fl_Button(220, 225, 30, 20, "Crear");
+                cantM_b->callback(crearMatriz, (void*)this);
+
+                for(j = 0, inputYAux = inputY; j < mMatriz; j++){
+                    for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
+                        if(i < mMatriz){
+                            floatInput[j][i] = new Fl_Float_Input(inputXAux, inputYAux, 30, 20);
+                            floatInput[j][i]->box(FL_GTK_UP_BOX);
+                        }else{
+                            floatInput[j][i] = new Fl_Float_Input(inputXAux+20, inputYAux, 30, 20);
+                            floatInput[j][i]->box(FL_GTK_UP_BOX);
+                        }
+                        floatInput[j][i]->value("1");
+                        floatInput[j][i]->hide();
+                        inputXAux += 40;
+                    }
+                    inputYAux += 30;
+                }
+
+                calcular = new Fl_Button(60, 425, 400, 25, "Calcular Sistema de Ecuaciones");
+                calcular->box(FL_UP_BOX);
+                calcular->labelfont(FL_BOLD);
+                calcular->callback(calcularMatriz, (void*)this);
+                calcular->hide();
 
                 sistemaEquWin->show();
                 sistemaEquWin->end();
@@ -38,4 +82,89 @@ void Window::wClose(Fl_Widget* widget, void* data){
     win->hide();
     Fl::delete_widget(win);
     flag = 0;
+}
+
+void Window::crearMatriz(Fl_Widget *w, void *data){
+    Window *o = (Window*)data;
+    o->crearMatriz2(w);
+}
+
+void Window::crearMatriz2(Fl_Widget *w){  
+    cantM->hide();
+    cantM_b->hide();
+
+    mMatriz = atoi(cantM->value());
+
+    switch(mMatriz){
+        case 2:
+            inputX = 195;
+            inputY = 240;
+            break;
+        case 3:
+            inputX = 175;
+            inputY = 225;
+            break;
+        case 4:
+            inputX = 155;
+            inputY = 210;
+            break;
+        case 5:
+            inputX = 135;
+            inputY = 195;
+            break;
+        case 6:
+            inputX = 115;
+            inputY = 180;
+            break;
+        case 7:
+            inputX = 95;
+            inputY = 175;
+            break;
+        case 8:
+            inputX = 75;
+            inputY = 150;
+            break;
+        case 9:
+            inputX = 55;
+            inputY = 135;
+            break;
+        case 10:
+            inputX = 35;
+            inputY = 120;
+            break;
+    }
+
+    for(j = 0, inputYAux = inputY; j < mMatriz; j++){
+        for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
+            if(i < mMatriz){
+                floatInput[j][i]->show();
+                floatInput[j][i]->resize(inputXAux, inputYAux, 30, 20);
+            }else{
+                floatInput[j][i]->show();
+                floatInput[j][i]->resize(inputXAux+20, inputYAux, 30, 20);
+            }
+            inputXAux += 40;
+        }
+        inputYAux += 30;
+    }
+
+    calcular->show();
+}
+
+void Window::calcularMatriz(Fl_Widget *w, void *data){
+    Window *o = (Window*)data;
+    o->calcularMatriz2(w);
+}
+
+void Window::calcularMatriz2(Fl_Widget *w){
+    calcular->hide();
+    titulo->hide();
+
+    mMatriz = atoi(cantM->value());
+
+    for(j=0; j<mMatriz; j++){
+		for(i=0; i<mMatriz+1; i++){
+            floatInput[j][i]->hide();
+        }
+	}
 }
