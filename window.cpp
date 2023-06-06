@@ -35,6 +35,7 @@ Fl_Box *resultadoI;
 Window::Window(int modo){
     if(flag == 0){
         flag = 1;
+        
         switch(modo){
             case 1:
                 sistemaEquWin = new Fl_Window(520, 480);
@@ -164,7 +165,6 @@ void Window::crearMatriz(Fl_Widget *w, void *data){
 }
 
 void Window::crearMatriz2(Fl_Widget *w){  
-
     mMatriz = atoi(cantM->value());
 
     switch(mMatriz){
@@ -249,11 +249,8 @@ void Window::setMatriz(Fl_Widget *w){
 
     diagonalS= calc.calcularGauss();
 
-    std::cout<<calc.calcularGauss();
-
     resultado->label(diagonalS.c_str());
     resultado->show();
-    std::cout<<calc.calcularGauss();
 }
 
 void Window::primeraFunc(Fl_Widget *w, void *data){
