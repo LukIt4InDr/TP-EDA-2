@@ -223,9 +223,6 @@ void Window::calcularMatriz(Fl_Widget *w, void *data){
     titulo->hide();
     
     o->setMatriz(w);
-   
-    resultado->label("Resultados:");
-    resultado->show();
 
     for(o->i=0; o->i<o->mMatriz; o->i++){
         delete[] o->matriz[o->i];
@@ -238,6 +235,7 @@ void Window::setMatriz(Fl_Widget *w){
     mMatriz = atoi(cantM->value());
     Gauss calc = Gauss(mMatriz);
     std::string diagonalS;
+    std::string gaussS;
 
     matriz = new float *[mMatriz];
 	for(i=0; i<mMatriz; i++){
@@ -252,11 +250,19 @@ void Window::setMatriz(Fl_Widget *w){
 	}
 
     calc.setMatrizG(matriz);
-    diagonalS = calc.mDiagonal(w);
+    diagonalS = calc.mDiagonal();
 
     diagonal->label(diagonalS.c_str());
     diagonal->show();
     diagonalTitulo->show();
+
+    gaussS = calc.calcularGauss();
+
+    std::cout<<calc.calcularGauss();
+
+    resultado->label((calc.calcularGauss()).c_str());
+    resultado->show();
+    std::cout<<calc.calcularGauss();
 }
 
 void Window::primeraFunc(Fl_Widget *w, void *data){

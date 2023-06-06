@@ -14,6 +14,7 @@ Gauss::Gauss(short _mMatriz){
     mMatriz = _mMatriz;
 
     matriz1 = new float *[mMatriz];
+    gauss = new float [mMatriz];
 	for(i=0; i<mMatriz; i++){
         matriz1[i] = new float [mMatriz+1];
     }
@@ -27,7 +28,7 @@ void Gauss::setMatrizG(float *_matriz[]){
 	}
 }
 
-std::string Gauss::mDiagonal(Fl_Widget *w){
+std::string Gauss::mDiagonal(){
     std::stringstream ss;
     std::string diagonalS;
 
@@ -50,7 +51,19 @@ std::string Gauss::mDiagonal(Fl_Widget *w){
         ss << "\n";
 	}
     diagonalS = ss.str();
-    std::cout<<diagonalS;
     
     return diagonalS;
+}
+
+std::string Gauss::calcularGauss(){
+    std::stringstream ss;
+    std::string gaussS;
+
+    for(i=0; i<mMatriz; i++){
+        gauss[i] = matriz1[i][mMatriz]/matriz1[i][i];
+        ss << gauss[i];
+    }
+    gaussS = ss.str();
+
+    return gaussS;
 }

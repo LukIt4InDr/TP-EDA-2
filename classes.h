@@ -38,9 +38,8 @@ class Gauss{
     public:
         Gauss(short);
         void setMatrizG(float*[]);
-        std::string mDiagonal(Fl_Widget *);
-        float **calcularGauss();
-        std::string resultado(short);
+        std::string mDiagonal();
+        std::string calcularGauss();
 };
 
 class Trapecio{
