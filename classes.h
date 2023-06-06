@@ -1,5 +1,6 @@
 #ifndef CLASSES_H_
 #define CLASSES_H_
+#include <string>
 
 void close(Fl_Widget*, void*);
 void sistemaEqLin();
@@ -21,21 +22,23 @@ class Window{
     protected:
         short inputX = 175, inputY = 225;
         short inputXAux, inputYAux;
-        short mMatriz = 3;
+        short mMatriz = 10;
         short i, j, k;
         float **matriz = 0;
+        char *resultadoC = 0;
 };
 
 class Gauss{
     private:
-        short mMatriz;
-        float *gauss = 0, **matriz = 0;
+        short mMatriz, i, j, k, largo=0;
+        float *gauss = 0, **matriz1 = 0, aux;
+        //char *diagonalC;
     public:
-        Gauss();
-        void setMatrizG(short, float*[]);
-        float **mDiagonal();
+        Gauss(short);
+        void setMatrizG(float*[]);
+        std::string mDiagonal(Fl_Widget *);
         float **calcularGauss();
-        char *resultado(short);
+        std::string resultado(short);
 };
 
 #endif

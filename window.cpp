@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+#include <string>
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
@@ -6,25 +8,24 @@
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Button.H>
-#include <string.h>
 #include "classes.h"
 
 short flag = 0;
 
 Fl_Box *titulo;
+Fl_Box *resultado;
 
 Fl_Int_Input *cantM;
 Fl_Button *cantM_b;
 Fl_Float_Input *floatInput[10][11];
 Fl_Button *calcular;
+Fl_Box *diagonal;
 
 Window::Window(int modo){
     if(flag == 0){
         flag = 1;
         switch(modo){
             case 1:
-
-            
                 sistemaEquWin = new Fl_Window(520, 480);
                 sistemaEquWin->label("Sistema de Ecuaciones");
                 sistemaEquWin->callback(wClose,sistemaEquWin);
@@ -50,7 +51,6 @@ Window::Window(int modo){
                             floatInput[j][i] = new Fl_Float_Input(inputXAux+20, inputYAux, 30, 20);
                             floatInput[j][i]->box(FL_GTK_UP_BOX);
                         }
-                        floatInput[j][i]->value("1");
                         floatInput[j][i]->hide();
                         inputXAux += 40;
                     }
@@ -62,6 +62,16 @@ Window::Window(int modo){
                 calcular->labelfont(FL_BOLD);
                 calcular->callback(calcularMatriz, (void*)this);
                 calcular->hide();
+
+                diagonal = new Fl_Box(60, 10, 400, 350);
+                diagonal->box(FL_UP_BOX);
+                diagonal->labelfont(FL_BOLD);
+                diagonal->hide();
+
+                resultado = new Fl_Box(60, 380, 400, 95);
+                resultado->box(FL_UP_BOX);
+                resultado->labelfont(FL_BOLD);
+                resultado->hide();
 
                 sistemaEquWin->show();
                 sistemaEquWin->end();
@@ -155,22 +165,29 @@ void Window::crearMatriz2(Fl_Widget *w){
 void Window::calcularMatriz(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
 
-
-    o->setMatriz(w);
     calcular->hide();
     titulo->hide();
+    o->setMatriz(w);
 
     
 
-    for(o->i=0; o->i<o->mMatriz; o->i++){
-        delete[] o->matriz[o->i];
-    }
-    delete[] o->matriz;
-    **(o->matriz) = 0;
+   
+    resultado->label("Resultados:");
+    resultado->show();
+
+    // for(o->i=0; o->i<o->mMatriz; o->i++){
+    //     delete[] o->matriz[o->i];
+    // }
+    // delete[] o->matriz;
+    // **(o->matriz) = 0;
+    // delete[] o->resultadoC;
+    // *o->resultadoC = 0;
 }
 
 void Window::setMatriz(Fl_Widget *w){
     mMatriz = atoi(cantM->value());
+    Gauss calc = Gauss(mMatriz);
+    std::string diagonalS;
 
     matriz = new float *[mMatriz];
 	for(i=0; i<mMatriz; i++){
@@ -183,4 +200,10 @@ void Window::setMatriz(Fl_Widget *w){
             matriz[j][i] = atof(floatInput[j][i]->value());
         }
 	}
+
+    calc.setMatrizG(matriz);
+    diagonalS = calc.mDiagonal(w);
+
+    diagonal->label(diagonalS.c_str());
+    diagonal->show();
 }
