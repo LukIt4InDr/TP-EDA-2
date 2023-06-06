@@ -197,24 +197,26 @@ void Window::crearMatriz2(Fl_Widget *w){
             break;
     }
 
-    cantM->hide();
-    Fl::delete_widget(cantM_b);
+    if(mMatriz > 1 && mMatriz < 11){
+        cantM->hide();
+        Fl::delete_widget(cantM_b);
 
-    for(j = 0, inputYAux = inputY; j < mMatriz; j++){
-        for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
-            if(i < mMatriz){
-                floatInput[j][i]->show();
-                floatInput[j][i]->resize(inputXAux, inputYAux, 30, 20);
-            }else{
-                floatInput[j][i]->show();
-                floatInput[j][i]->resize(inputXAux+20, inputYAux, 30, 20);
+        for(j = 0, inputYAux = inputY; j < mMatriz; j++){
+            for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
+                if(i < mMatriz){
+                    floatInput[j][i]->show();
+                    floatInput[j][i]->resize(inputXAux, inputYAux, 30, 20);
+                }else{
+                    floatInput[j][i]->show();
+                    floatInput[j][i]->resize(inputXAux+20, inputYAux, 30, 20);
+                }
+                inputXAux += 40;
             }
-            inputXAux += 40;
+            inputYAux += 30;
         }
-        inputYAux += 30;
-    }
 
-    calcular->show();
+        calcular->show();
+    }
 }
 
 void Window::calcularMatriz(Fl_Widget *w, void *data){
