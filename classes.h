@@ -17,6 +17,8 @@ class Window{
         void crearMatriz2(Fl_Widget *);
         static void calcularMatriz(Fl_Widget*, void*);
         void setMatriz(Fl_Widget *);
+        static void primeraFunc(Fl_Widget*, void*);
+        void primeraFunc2(Fl_Widget *);
     public:
         Window(int);
     protected:
@@ -25,20 +27,28 @@ class Window{
         short mMatriz = 10;
         short i, j, k;
         float **matriz = 0;
-        char *resultadoC = 0;
 };
 
 class Gauss{
     private:
         short mMatriz, i, j, k, largo=0;
         float *gauss = 0, **matriz1 = 0, aux;
-        //char *diagonalC;
     public:
         Gauss(short);
         void setMatrizG(float*[]);
         std::string mDiagonal(Fl_Widget *);
         float **calcularGauss();
         std::string resultado(short);
+};
+
+class Trapecio{
+    private:
+        float integral, funcionA, funcionB;
+        short a, b, funcion;
+    public:
+        Trapecio(short, short, short);
+        void calcularFunciones();
+        float calcularTrapecio();
 };
 
 #endif

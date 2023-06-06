@@ -21,6 +21,14 @@ Fl_Float_Input *floatInput[10][11];
 Fl_Button *calcular;
 Fl_Box *diagonal;
 
+Fl_Button *funcion1;
+Fl_Button *funcion2;
+Fl_Box *titulo2;
+Fl_Box *limites;
+Fl_Box *ecuacion;
+Fl_Box *cuenta;
+Fl_Box *resultadoI;
+
 Window::Window(int modo){
     if(flag == 0){
         flag = 1;
@@ -80,6 +88,47 @@ Window::Window(int modo){
                 integracionWin = new Fl_Window(520, 480);
                 integracionWin->label("Integracion Numerica");
 	            integracionWin->callback(wClose,integracionWin);
+
+                titulo = new Fl_Box(60, 40, 400, 100);
+                titulo->label("La Solucion de Integracion Numerica por medio de\n la Regla del Trapecio es demostrativa\n con dos funciones pre-definidas.\n Seleccione cual quiere resolver.");
+                titulo->box(FL_UP_BOX);
+                titulo->labelfont(FL_BOLD);
+
+                funcion1 = new Fl_Button(110, 200, 300, 75, "∫-x²+8x-12 dx");
+                funcion1->labelsize(30);
+                funcion1->callback(primeraFunc, (void*)this);
+
+                funcion2 = new Fl_Button(110, 300, 300, 75, "∫sen(3x+5) dx");
+                funcion2->labelsize(30);
+                //funcion2->callback(segundaFunc, (void*)this);
+
+                titulo2 = new Fl_Box(60, 40, 400, 100);
+                titulo2->box(FL_UP_BOX);
+                titulo2->labelsize(36);
+                titulo2->labelfont(FL_BOLD);
+                titulo2->hide();
+
+                limites = new Fl_Box(60, 105, 400, 100);
+                limites->labelsize(30);
+                limites->labelfont(FL_BOLD);
+                limites->hide();
+
+                ecuacion = new Fl_Box(60, 170, 400, 100);
+                ecuacion->box(FL_UP_BOX);
+                ecuacion->labelsize(30);
+                ecuacion->labelfont(FL_BOLD);
+                ecuacion->hide();
+
+                cuenta = new Fl_Box(60, 280, 400, 100);
+                cuenta->box(FL_UP_BOX);
+                cuenta->labelsize(30);
+                cuenta->labelfont(FL_BOLD);
+                cuenta->hide();
+
+                resultadoI = new Fl_Box(60, 400, 400, 50);
+                resultadoI->box(FL_UP_BOX);
+                resultadoI->labelfont(FL_BOLD);
+                resultadoI->hide();
 
                 integracionWin->show();
                 integracionWin->end();
@@ -167,10 +216,8 @@ void Window::calcularMatriz(Fl_Widget *w, void *data){
 
     calcular->hide();
     titulo->hide();
-    o->setMatriz(w);
-
     
-
+    o->setMatriz(w);
    
     resultado->label("Resultados:");
     resultado->show();
@@ -206,4 +253,41 @@ void Window::setMatriz(Fl_Widget *w){
 
     diagonal->label(diagonalS.c_str());
     diagonal->show();
+}
+
+void Window::primeraFunc(Fl_Widget *w, void *data){
+    Window *o = (Window*)data;
+	
+    titulo->hide();
+	funcion1->hide();
+	funcion2->hide();
+
+    o->primeraFunc2(w);
+}
+
+void Window::primeraFunc2(Fl_Widget *w){
+    std::stringstream ss;
+    std::string resultadoCompleto;
+
+    Trapecio calc = Trapecio(3, 5, 1);
+    
+    titulo2->label("∫-x²+8x-12 dx");
+    titulo2->show();
+    limites->label("a = 3   b = 5");
+    limites->show();
+
+    ecuacion->label("I=(b - a) x (F(a) + F(b))/2");
+    ecuacion->show();
+
+    cuenta->label("I=(5 - 3) x (3 + 3)/2");
+    cuenta->show();
+
+    calc.calcularFunciones();
+
+    ss << calc.calcularTrapecio();
+    resultadoCompleto = "El resultado de la Integracion es: " /*+ ss.str()*/;
+
+    resultadoI->label(resultadoCompleto.c_str());
+    resultadoI->show();
+
 }
