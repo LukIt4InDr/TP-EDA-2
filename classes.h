@@ -26,7 +26,7 @@ class Window{
     protected:
         short inputX = 175, inputY = 225;
         short inputXAux, inputYAux;
-        short mMatriz = 10;
+        short mMatriz = 4;
         short i, j, k;
         float **matriz = 0;
 };

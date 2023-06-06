@@ -15,6 +15,8 @@ short flag = 0;
 Fl_Box *titulo;
 Fl_Box *resultado;
 
+Fl_Box *box;
+Fl_Box *texto;
 Fl_Int_Input *cantM;
 Fl_Button *cantM_b;
 Fl_Float_Input *floatInput[10][11];
@@ -40,15 +42,22 @@ Window::Window(int modo){
                 sistemaEquWin->callback(wClose,sistemaEquWin);
 
                 titulo = new Fl_Box(60, 10, 400, 100);
-                titulo->label("La Solucion del Sistema de Ecuaciones es\n por medio del Metodo de Gauss-Jordan.\n El sistema en esta calculadora solo puede\n tener hasta 10 ecuaciones.");
+                titulo->label("La Solucion del Sistema de Ecuaciones es\n por medio del Metodo de Gauss-Jordan.\n El sistema en esta calculadora solo puede\n tener hasta 4 ecuaciones.");
                 titulo->box(FL_UP_BOX);
                 titulo->labelfont(FL_BOLD);
 
-                cantM = new Fl_Int_Input(175, 225, 30, 20);
+                box = new Fl_Box(60, 150, 400, 200);
+                box->box(FL_UP_BOX);
+                box->labelfont(FL_BOLD);
+
+                texto = new Fl_Box(60, 150, 400, 50);
+                texto->label("Ingrese cantidad de ecuaciones.\nno mas de 4 y no menos de 2.");
+
+                cantM = new Fl_Int_Input(200, 250, 30, 20);
                 cantM->box(FL_GTK_UP_BOX);
                 cantM->value("3");
 
-                cantM_b = new Fl_Button(220, 225, 30, 20, "Crear");
+                cantM_b = new Fl_Button(260, 250, 40, 20, "Crear");
                 cantM_b->callback(crearMatriz, (void*)this);
 
                 for(j = 0, inputYAux = inputY; j < mMatriz; j++){
@@ -171,35 +180,12 @@ void Window::crearMatriz2(Fl_Widget *w){
             inputX = 155;
             inputY = 210;
             break;
-        case 5:
-            inputX = 135;
-            inputY = 195;
-            break;
-        case 6:
-            inputX = 115;
-            inputY = 180;
-            break;
-        case 7:
-            inputX = 95;
-            inputY = 175;
-            break;
-        case 8:
-            inputX = 75;
-            inputY = 150;
-            break;
-        case 9:
-            inputX = 55;
-            inputY = 135;
-            break;
-        case 10:
-            inputX = 35;
-            inputY = 120;
-            break;
     }
 
-    if(mMatriz > 1 && mMatriz < 11){
+    if(mMatriz > 1 && mMatriz < 5){
         cantM->hide();
         Fl::delete_widget(cantM_b);
+        texto->label("Ingrese Coeficientes y Resultados.");
 
         for(j = 0, inputYAux = inputY; j < mMatriz; j++){
             for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
@@ -224,6 +210,8 @@ void Window::calcularMatriz(Fl_Widget *w, void *data){
 
     Fl::delete_widget(calcular);
     Fl::delete_widget(titulo);
+    Fl::delete_widget(box);
+    Fl::delete_widget(texto);
     
     o->setMatriz(w);
 
