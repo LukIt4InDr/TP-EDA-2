@@ -16,7 +16,7 @@ class Window{
         static void crearMatriz(Fl_Widget*, void*);
         void crearMatriz2(Fl_Widget *);
         static void calcularMatriz(Fl_Widget*, void*);
-        void setMatriz(Fl_Widget *);
+        void setMatriz(Fl_Widget*);
         static void primeraFunc(Fl_Widget*, void*);
         void primeraFunc2(Fl_Widget *);
         static void segundaFunc(Fl_Widget*, void*);

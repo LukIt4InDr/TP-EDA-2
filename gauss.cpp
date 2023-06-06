@@ -59,9 +59,10 @@ std::string Gauss::calcularGauss(){
     std::stringstream ss;
     std::string gaussS;
 
+    ss << "Resultados:\n";
     for(i=0; i<mMatriz; i++){
         gauss[i] = matriz1[i][mMatriz]/matriz1[i][i];
-        ss << gauss[i];
+        ss << "x" << i+1 << "= " <<gauss[i] << "\t";
     }
     gaussS = ss.str();
 

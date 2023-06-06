@@ -155,8 +155,6 @@ void Window::crearMatriz(Fl_Widget *w, void *data){
 }
 
 void Window::crearMatriz2(Fl_Widget *w){  
-    cantM->hide();
-    cantM_b->hide();
 
     mMatriz = atoi(cantM->value());
 
@@ -199,6 +197,9 @@ void Window::crearMatriz2(Fl_Widget *w){
             break;
     }
 
+    cantM->hide();
+    Fl::delete_widget(cantM_b);
+
     for(j = 0, inputYAux = inputY; j < mMatriz; j++){
         for (i = 0, inputXAux = inputX; i < mMatriz+1; i++){
             if(i < mMatriz){
@@ -219,8 +220,8 @@ void Window::crearMatriz2(Fl_Widget *w){
 void Window::calcularMatriz(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
 
-    calcular->hide();
-    titulo->hide();
+    Fl::delete_widget(calcular);
+    Fl::delete_widget(titulo);
     
     o->setMatriz(w);
 
@@ -250,17 +251,17 @@ void Window::setMatriz(Fl_Widget *w){
 	}
 
     calc.setMatrizG(matriz);
-    diagonalS = calc.mDiagonal();
+    gaussS = calc.mDiagonal();
 
-    diagonal->label(diagonalS.c_str());
+    diagonal->label(gaussS.c_str());
     diagonal->show();
     diagonalTitulo->show();
 
-    gaussS = calc.calcularGauss();
+    diagonalS= calc.calcularGauss();
 
     std::cout<<calc.calcularGauss();
 
-    resultado->label((calc.calcularGauss()).c_str());
+    resultado->label(diagonalS.c_str());
     resultado->show();
     std::cout<<calc.calcularGauss();
 }
@@ -268,9 +269,9 @@ void Window::setMatriz(Fl_Widget *w){
 void Window::primeraFunc(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
 	
-    titulo->hide();
-	funcion1->hide();
-	funcion2->hide();
+    Fl::delete_widget(titulo);
+	Fl::delete_widget(funcion1);
+	Fl::delete_widget(funcion2);
 
     o->primeraFunc2(w);
 }
@@ -304,9 +305,9 @@ void Window::primeraFunc2(Fl_Widget *w){
 void Window::segundaFunc(Fl_Widget *w, void *data){
     Window *o = (Window*)data;
 	
-    titulo->hide();
-	funcion1->hide();
-	funcion2->hide();
+    Fl::delete_widget(titulo);
+	Fl::delete_widget(funcion1);
+	Fl::delete_widget(funcion2);
 
     o->segundaFunc2(w);
 }
