@@ -43,7 +43,6 @@ std::string Gauss::mDiagonal(Fl_Widget *w){
         }
     }
 
-    ss << "Matriz:\n\n";
     for(i=0; i<mMatriz; i++){
 		for(j=0; j<mMatriz+1; j++){
 		    ss << matriz1[i][j] << "\t";

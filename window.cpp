@@ -20,6 +20,7 @@ Fl_Button *cantM_b;
 Fl_Float_Input *floatInput[10][11];
 Fl_Button *calcular;
 Fl_Box *diagonal;
+Fl_Box *diagonalTitulo;
 
 Fl_Button *funcion1;
 Fl_Button *funcion2;
@@ -75,6 +76,10 @@ Window::Window(int modo){
                 diagonal->box(FL_UP_BOX);
                 diagonal->labelfont(FL_BOLD);
                 diagonal->hide();
+
+                diagonalTitulo = new Fl_Box(60, 10, 400, 30, "Matriz Diagonal:");
+                diagonalTitulo->labelfont(FL_BOLD);
+                diagonalTitulo->hide();
 
                 resultado = new Fl_Box(60, 380, 400, 95);
                 resultado->box(FL_UP_BOX);
@@ -222,13 +227,11 @@ void Window::calcularMatriz(Fl_Widget *w, void *data){
     resultado->label("Resultados:");
     resultado->show();
 
-    // for(o->i=0; o->i<o->mMatriz; o->i++){
-    //     delete[] o->matriz[o->i];
-    // }
-    // delete[] o->matriz;
-    // **(o->matriz) = 0;
-    // delete[] o->resultadoC;
-    // *o->resultadoC = 0;
+    for(o->i=0; o->i<o->mMatriz; o->i++){
+        delete[] o->matriz[o->i];
+    }
+    delete[] o->matriz;
+    **(o->matriz) = 0;
 }
 
 void Window::setMatriz(Fl_Widget *w){
@@ -253,6 +256,7 @@ void Window::setMatriz(Fl_Widget *w){
 
     diagonal->label(diagonalS.c_str());
     diagonal->show();
+    diagonalTitulo->show();
 }
 
 void Window::primeraFunc(Fl_Widget *w, void *data){
