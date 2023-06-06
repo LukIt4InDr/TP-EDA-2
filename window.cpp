@@ -100,7 +100,7 @@ Window::Window(int modo){
 
                 funcion2 = new Fl_Button(110, 300, 300, 75, "∫sen(3x+5) dx");
                 funcion2->labelsize(30);
-                //funcion2->callback(segundaFunc, (void*)this);
+                funcion2->callback(segundaFunc, (void*)this);
 
                 titulo2 = new Fl_Box(60, 40, 400, 100);
                 titulo2->box(FL_UP_BOX);
@@ -285,9 +285,44 @@ void Window::primeraFunc2(Fl_Widget *w){
     calc.calcularFunciones();
 
     ss << calc.calcularTrapecio();
-    resultadoCompleto = "El resultado de la Integracion es: " /*+ ss.str()*/;
+    resultadoCompleto = "El resultado es: " + ss.str();
 
     resultadoI->label(resultadoCompleto.c_str());
     resultadoI->show();
+}
 
+void Window::segundaFunc(Fl_Widget *w, void *data){
+    Window *o = (Window*)data;
+	
+    titulo->hide();
+	funcion1->hide();
+	funcion2->hide();
+
+    o->segundaFunc2(w);
+}
+
+void Window::segundaFunc2(Fl_Widget *w){
+    std::stringstream ss;
+    std::string resultadoCompleto;
+
+    Trapecio calc = Trapecio(1, 3, 2);
+    
+    titulo2->label("∫sen(3x+5) dx");
+    titulo2->show();
+    limites->label("a = 1   b = 3");
+    limites->show();
+
+    ecuacion->label("I=(b - a) x (F(a) + F(b))/2");
+    ecuacion->show();
+
+    cuenta->label("I=(3 - 1) x (0,98 + 0,99)/2");
+    cuenta->show();
+
+    calc.calcularFunciones();
+
+    ss << calc.calcularTrapecio();
+    resultadoCompleto = "El resultado es: " + ss.str();
+
+    resultadoI->label(resultadoCompleto.c_str());
+    resultadoI->show();
 }

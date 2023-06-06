@@ -30,6 +30,6 @@ void Trapecio::calcularFunciones(){
 
 float Trapecio::calcularTrapecio(){
     integral = (b - a)*(funcionA + funcionB)/2;
-
+    std::cout<<integral;
     return integral;
 }

@@ -19,6 +19,8 @@ class Window{
         void setMatriz(Fl_Widget *);
         static void primeraFunc(Fl_Widget*, void*);
         void primeraFunc2(Fl_Widget *);
+        static void segundaFunc(Fl_Widget*, void*);
+        void segundaFunc2(Fl_Widget *);
     public:
         Window(int);
     protected:
